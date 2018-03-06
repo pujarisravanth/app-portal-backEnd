@@ -1,0 +1,45 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.7.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+group = 'com.app'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+war {
+    baseName = 'appPortal'
+    version =  '0.0.1-SNAPSHOT'
+}
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+	maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+    //maven { url 'https://repo.spring.io/libs-release' }
+}
+
+dependencies {
+	compile files ('libs/ojdbc14.jar')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile "junit:junit:4.12"
+}
