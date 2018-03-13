@@ -17,7 +17,7 @@ public class UsersController {
 	public List<Users> getAllNames(){
     	List<Users> allUsers = usersRepository.findAll();
 		return allUsers;
-    }
+	}
 	
 	//add a new user
 	@CrossOrigin(origins = "http://localhost:4200")
