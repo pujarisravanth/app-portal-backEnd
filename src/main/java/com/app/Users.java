@@ -5,18 +5,23 @@ import javax.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "users")
+@Table(name = "sign_up")
 @EntityListeners(AuditingEntityListener.class)
 public class Users {
 	
 	private String username;
 	private String password;
+	
+	@Id
 	private String email;
 	
+	/*
 	@Id
 	@SequenceGenerator(name="seq",sequenceName="seq",initialValue=3, allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
 	private long id;
+	*/
+	
 	
 	public Users() {
 	}
@@ -25,14 +30,6 @@ public class Users {
 		this.username = username;
 		this.password = password;
 		this.email = email;
-	}
-	
-	public long getId() {
-		return this.id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 	
 	public String getUsername() {

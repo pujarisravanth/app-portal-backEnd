@@ -21,11 +21,20 @@ public class UsersController {
 	
 	//add a new user
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping("/users")
-    public Users createGreeting(@RequestBody Users user) {
-    	return usersRepository.save(user);
+	@PostMapping("/signup")
+    public boolean createGreeting(@RequestBody Users user) {
+    	return usersRepository.save(user) != null;
     }
-	
+		
+	//check for log in
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/login")
+	public boolean checkUser(@RequestBody Users new_user) {
+		Users user = usersRepository.findByUsername(new_user.getUsername());
+		if(user.getPassword().equals(new_user.getPassword())) return true;
+		else return false;
+	}
+
 	//get data about single user
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/user/{name}")
@@ -36,19 +45,11 @@ public class UsersController {
 	
 	//update data of one single user
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PutMapping("/users")
+	@PostMapping("/changePwd")
 	public Users updateUser(@RequestBody Users new_user) {
 		Users user = usersRepository.findByUsernameAndEmail(new_user.getUsername(), new_user.getEmail());
-		usersRepository.updateById(new_user.getPassword(),user.getId());
+		if(user != null) usersRepository.updateById(new_user.getPassword(),user.getEmail());
 		return user;
 	}
 	
-	//check for log in
-	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping("/login")
-	public boolean checkUser(@RequestBody Users new_user) {
-		Users user = usersRepository.findByUsername(new_user.getUsername());
-		if(user.getPassword().equals(new_user.getPassword())) return true;
-		else return false;
-	}
 }
